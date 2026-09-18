@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Home Depot – $750 Gift Card</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f2f2f2;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px 12px 40px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── MAIN CARD ── */
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 20px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* ── LOGO ── */
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .logo-wrap img {
+      width: 200px;
+      height: auto;
+      mix-blend-mode: multiply;
+    }
+
+    /* ── HEADER TEXT ── */
+    .header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .header p strong { color: #111; }
+
+    /* ── STEPS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      padding: 13px 14px;
+    }
+
+    .step-num {
+      min-width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #F96302;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 14.5px;
+      color: #222;
+      line-height: 1.4;
+    }
+
+    .step-text strong { color: #111; }
+
+    /* ── CTA ── */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 17px;
+      background: #F96302;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-align: center;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      transition: background 0.2s;
+    }
+
+    .cta-btn:hover { background: #D45200; }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+      line-height: 1.5;
+      padding: 0 4px;
+    }
+
+    /* ── FAQ SECTION ── */
+    .faq-section {
+      margin-top: 20px;
+    }
+
+    .faq-heading {
+      font-size: 20px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 14px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .faq-item.active { border-color: #F96302; }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      cursor: pointer;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #111;
+      user-select: none;
+    }
+
+    .faq-arrow {
+      font-size: 18px;
+      color: #555;
+      transition: transform 0.22s;
+      flex-shrink: 0;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      font-size: 13.5px;
+      color: #555;
+      line-height: 1.6;
+      padding: 0 16px;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 150px;
+      padding: 0 16px 14px;
+    }
+
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+    /* ── FOOTER NOTE ── */
+    .footer-note {
+      margin-top: 16px;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 12px;
+      color: #aaa;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    
+
+    
+
+    /* CLAIMER TOAST */
+    .claimer-toast {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 440px;
+      background: #fff;
+      border-radius: 50px;
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.13);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .claimer-toast.show { opacity: 1; }
+    .toast-check {
+      width: 30px; height: 30px; min-width: 30px;
+      border-radius: 50%;
+      background: #22C55E;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 15px; flex-shrink: 0;
+    }
+    .toast-text { font-size: 13px; font-weight: 500; color: #111; line-height: 1.3; }
+    .toast-text b { color: #F96302; font-weight: 700; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MAIN CARD -->
+  <div class="card">
+
+    <!-- Home Depot Logo -->
+    <div class="logo-wrap">
+      <img src="data:image/png;base64,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" alt="The Home Depot" />
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Complete Your<br>Registration</h1>
+      <p>Follow these simple steps to claim your <strong>$750 Home Depot gift card</strong></p>
+    </div>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Click on <strong>"Claim Now"</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Enter your email and basic info</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Complete 3-5 sponsored deals</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Enjoy your <strong>$750 Home Depot gift card!</strong></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a href="https://linkthem.net/aff_c?offer_id=2442&aff_id=186915" class="cta-btn" target="_blank">CLAIM NOW</a>
+    <p class="disclaimer">By clicking "Claim Now", you agree to complete the required steps to receive your gift card.</p>
+
+  </div>
+
+  <!-- FAQ SECTION -->
+  <div class="faq-section">
+    <div class="faq-heading">Frequently Asked Questions</div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What deals do I need to complete?
+          <span class="faq-arrow">&#8964;</span>
+        </div>
+        <div class="faq-answer">Deals include free trials, app downloads, and surveys. You choose which ones to complete from the available options.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How does this work?
+          <span class="faq-arrow">&#8964;</span>
+        </div>
+        <div class="faq-answer">Simply click "Claim Now", enter your details, and complete 4-5 sponsor deals to receive your $750 Home Depot gift card.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          When will I receive my reward?
+          <span class="faq-arrow">&#8964;</span>
+        </div>
+        <div class="faq-answer">Your gift card is delivered digitally within 24-48 hours after all required deals are completed and verified.</div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">
+      This is a promotional offer. Reward fulfillment subject to deal completion and verification.
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+    item.classList.toggle('active');
+  }
+</script>
+
+<script>
+  </script>
+
+
+
+<!-- CLAIMER TOAST -->
+<div class="claimer-toast" id="claimerToast">
+  <div class="toast-check">&#10003;</div>
+  <div class="toast-text" id="toastText"><b>Wilson</b> from Seattle claimed the $750 gift card</div>
+</div>
+
+<script>
+  
+
+  // Claimer toast
+  const claimers = [
+    ["Wilson", "Seattle", "$750"],
+    ["Maria", "Dallas", "$750"],
+    ["James", "Chicago", "$750"],
+    ["Ashley", "Houston", "$750"],
+    ["Brian", "Phoenix", "$750"],
+    ["Samantha", "Denver", "$750"],
+    ["Carlos", "Miami", "$750"],
+    ["Nicole", "Atlanta", "$750"],
+    ["Tyler", "Portland", "$750"],
+    ["Jessica", "Austin", "$750"],
+    ["David", "Las Vegas", "$750"],
+    ["Rachel", "Nashville", "$750"],
+  ];
+  let toastIdx = 0;
+  const toast = document.getElementById('claimerToast');
+  const toastText = document.getElementById('toastText');
+
+  function showClaimerToast() {
+    const [name, city, amt] = claimers[toastIdx % claimers.length];
+    toastIdx++;
+    toastText.innerHTML = '<b>' + name + '</b> from ' + city + ' claimed the ' + amt + ' gift card';
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(showClaimerToast, 5000 + Math.random() * 7000);
+    }, 4000);
+  }
+  setTimeout(showClaimerToast, 3500);
+</script>
+</body>
+</html>
